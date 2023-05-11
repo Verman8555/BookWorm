@@ -1,0 +1,22 @@
+{
+  "name": "oscar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Verman8555/BookWorm.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Verman8555/BookWorm/issues"
+  },
+  "homepage": "https://github.com/Verman8555/BookWorm#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
