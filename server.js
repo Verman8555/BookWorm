@@ -11,7 +11,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
-//app.use(methodOverride('_method'));
+app.use(methodOverride('_method'));
 
 //dotenv.config({path:'config.env'});
 mongoose.connect('mongodb+srv://vermanvishal8555:nT9eVnwYGfY3pw0N@cluster0.fatjnzh.mongodb.net/', {
@@ -30,19 +30,37 @@ db.once("open", () => {
     console.log("Database connected");
 });
 
-app.get('/',(req,res) => {
-    res.send("hi");
+app.get('/', async (req,res) => {
+    try{
+        const data = await WriterSchema.find();
+        res.json(data);
+    } catch(error){
+        res.status(500).json({message: error.message})
+    }
 })
 
 app.post('/post', async (req,res) => {
     const data = new WriterSchema({
-        Name:"nmsss",
-        Century: "cskdj",
-        Genre: "jhbjadch",
-        Highlight: "jhbdjs"
+        Name: req.body.Name,
+        Century: req.body.Century,
+        Genre: req.body.Genre,
+        Hightlight: req.body.Highlight
     });
-    await data.save();
-    res.send(data);
+    try{
+        const savedData = await data.save();
+        res.status(200).json(savedData);
+    } catch (error) {
+        res.status(400).json({message: error.message})
+    }
+})
+
+app.get('/:id', async (req,res) => {
+    try{
+        const data = await WriterSchema.findById();
+        res.json(data);
+    } catch(error){
+        res.status(500).json({message: error.message});
+    }
 })
 
 app.listen(1234,() => {
